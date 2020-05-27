@@ -86,41 +86,106 @@ ssd_T = sum(Tdif.^2);
 % 5. Project 3d Points with M, plot 2d points and compute error
 % -----------------------
 
-img = imread('cam.jpg');
-gegenstand = imread('gegenstand.jpg');
-% 2d - Bildkoordinaten:
-% 1925x1926|1888x1394(ursprung "0"), 3025x1518|3209x949 (x=9.3),
-% 1556x1058|1483x491 (x = 9.1), 2570x242(diag von 0)
-%imshow(img)
-%imshow(box)
+myimg = imread('cam.jpg'); % gegebenes bild
+%myimg = imread('gegenstand.jpg'); %13,5 x 16 x 8,2
+
+% width and height, dim of image plane
+myw=4352;
+myh=2448;
+
+% x=breite,y=länge,z=höhe
+scale = [9.3,9.1,6.3]; % gegebenes bild
+% da normalbox kantenlänge von 2 hat scale halbieren
+scale=0.5.*scale;
+%scale = [8.2,16.0,13.5]; % gegenstand
 
 %1. Define 3d point list
-img3Dp = [
-    -1     1     1    -1    -1     1     1    -1;
-    -1    -1     1     1    -1    -1     1     1;
-    -1    -1    -1    -1     1     1     1     1;
-     1     1     1     1     1     1     1     1
+% normalbox = [
+%     -1     1     1    -1    -1     1     1    -1;
+%     -1    -1     1     1    -1    -1     1     1;
+%     -1    -1    -1    -1     1     1     1     1;
+%      1     1     1     1     1     1     1     1
+%     ];
+
+% nur sichtbare punkte (dritter punkt entfernt), kantenlänge von 2
+normalbox = [
+    -1     1    -1    -1     1     1    -1;
+    -1    -1     1    -1    -1     1     1;
+    -1    -1    -1     1     1     1     1;
+     1     1     1     1     1     1     1
     ];
 
+% scale und trans matrix
+ScaleMat = [
+    scale(1)     0     0    0;
+    0     scale(2)     0    0;
+    0     0     scale(3)    0;
+    0     0     0    1
+    ];
+
+TranslateMat = [
+    1     0     0    1;
+    0     1     0    1;
+    0     0     1    1;
+    0     0     0    1
+    ];
+
+mybox3d=zeros(size(normalbox));
+
+for col=1:size(normalbox,2)
+    mybox3d(:,col) = TranslateMat * normalbox(:,col);
+    mybox3d(:,col) = ScaleMat * mybox3d(:,col);
+end
+
+%mybox3d(4,:)=[1     1     1     1     1     1     1];
+
+
 % 2. Define edge list
-% Edges of Box
-edges = [1 2; 2 3; 3 4; 4 1;...
+% Edges of Box, alle kanten mit verbindung zu punkt 3 entfernen
+myedges = [1 2; 4 1;...
          5 6; 6 7; 7 8; 8 5;...
-         1 5; 2 6; 3 7; 4 8];
+         1 5; 2 6; 4 8];
      
 % 3. Define 2d point list
+% 2d - Bildkoordinaten: (x,y)
+% 1925x1926|1888x1394(ursprung "0"), 3025x1518|3209x949 (x=9.3),
+% 1556x1058|1483x491 (y = 9.1), 2570x242(diag von 0)
+
+% nur sichtbare punkte (dritter punkt entfernt)
+mybox2d = [
+    1925     3025    1556    1888    3209     2570    1483;
+    1926     1518    1058    1394     949      242     491;
+    1     1     1     1     1     1     1
+    ];
 
 %2dpl = [170.096189432334,429.903810567666,429.903810567666,170.096189432334,213.397459621556,386.602540378444,386.602540378444,213.397459621556;170.096189432334,170.096189432334,429.903810567666,429.903810567666,213.397459621556,213.397459621556,386.602540378444,386.602540378444]
-
-img2d = projectPoints(img3Dp,M);
+%mybox2d = projectPoints(mybox3d,M);
 
 % 4. Compute camera parameters
-M_img = matrixFromPoints(img3Dp,img2d);
+M_mybox = matrixFromPoints(mybox3d,mybox2d);
+[R_mybox T_mybox ox_mybox oy_mybox fx_mybox fy_mybox] = camParams(M_mybox,mybox3d);
 
 % 5. Project 3d Points with M, plot 2d points and compute error
-img2d_Mimg = projectPoints(img3Dp,M);
+mybox2d_proj = projectPoints(mybox3d,M_mybox);
 
-%plotPoints(img2d_Mimg, edges, w, h)
+mybox2d_proj3 = cat(1,mybox2d_proj,[1     1     1     1     1     1     1]);
+
+%error
+MyPointdif = mybox2d - mybox2d_proj3;
+myssd_points = sum(MyPointdif.^2);
+myssd = sum(MyPointdif(:).^2);
+
+%plot
+figure();
+subplot(1,3,1);
+imshow(myimg);
+title('My Image');
+subplot(1,3,2);
+plotPoints(mybox2d, myedges, myw, myh);
+title('Box');
+%subplot(1,3,3);
+%plotPoints(mybox2d_proj3, myedges, myw, myh);
+%title('Projected Box');
 
 
 

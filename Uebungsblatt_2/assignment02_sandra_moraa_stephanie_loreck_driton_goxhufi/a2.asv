@@ -56,7 +56,7 @@ ssd = sum(Pointdif(:).^2);
 
 [R_new, T_new, ox_new, oy_new, fx_new, fy_new] = camParams(M_new,box(:,1));
 
-camParamsSol(M_new, box(:,1));
+Tsol = camParamsSol(M_new, box(:,1));
 
 % fehler zwischen mit geschaetzten und wirklichen caramParams bestimmen mit ssd
 Rdif = R - R_new;
@@ -70,12 +70,11 @@ ssd_T = sum(Tdif.^2);
 % auf die Genauigkeit der geschätzten Parameter aus? Was passiert wenn nur eine 2D-Koordinate
 % sehr stark abweicht (z.B. SSD nutzen)?
 
-% TODO: antwort
-% (Teil 1:) Durch SSD haben kleine Ungenauigkeiten(Verschiebungen) nur kleine 
-% Auswirkungen, da die Differenz(bspw. 0.5) quadriert wird und somit die 
-% Ungenauigkeit nur ein kleiner Faktor auch in ihrer Summe ergibt.
+% (Teil 1:) Durch SSD haben kleine Ungenauigkeiten (Verschiebungen) nur kleine 
+% Auswirkungen, da die Differenz (bspw. 0.5) quadriert wird und somit die 
+% Ungenauigkeit nur ein kleiner Faktor auch in der Summe ist.
 % (Teil 2:) Weist jedoch eine einzelne 2D-Koordinate sehr starke Abweichungen 
-% auf, somit wird durch die Quadierung der Differenz eine sehr starke
+% auf, wird durch die Quadierung der Differenz auch eine sehr starke
 % Ungenauigkeit in die Summe addiert. --> starke Auswirkung
 
 %% c) Compute parameters of your camera
@@ -85,22 +84,90 @@ ssd_T = sum(Tdif.^2);
 % 3. Define 2d point list
 % 4. Compute camera parameters
 % 5. Project 3d Points with M, plot 2d points and compute error
+% -----------------------
 
-% Place your code here...
-img = imread('cam.jpg');
-gegenstand = imread('gegenstand.jpg');
-% 2d - Bildkoordinaten:
-% 1925x1926|1888x1394(ursprung "0"), 3025x1518|3209x949 (x=9.3),
-% 1556x1058|1483x491 (x = 9.1), 2570x242(diag von 0)
-%imshow(img)
-%imshow(box)
-img3Dp = [
-    -1     1     1    -1    -1     1     1    -1;
-    -1    -1     1     1    -1    -1     1     1;
-    -1    -1    -1    -1     1     1     1     1;
-     1     1     1     1     1     1     1     1
+myimg = imread('cam.jpg'); % gegebenes bild
+%myimg = imread('gegenstand.jpg'); %13,5 x 16 x 8,2
+
+% width and height, dim of image plane
+myw=4352;
+myh=2448;
+
+% x=breite,y=länge,z=höhe
+scale = [9.3,9.1,6.3]; % gegebenes bild
+%scale = [8.2,16.0,13.5]; % gegenstand
+
+%1. Define 3d point list
+% normalbox = [
+%     -1     1     1    -1    -1     1     1    -1;
+%     -1    -1     1     1    -1    -1     1     1;
+%     -1    -1    -1    -1     1     1     1     1;
+%      1     1     1     1     1     1     1     1
+%     ];
+
+% nur sichtbare punkte (dritter punkt entfernt)
+normalbox = [
+    -1     1    -1    -1     1     1    -1;
+    -1    -1     1    -1    -1     1     1;
+    -1    -1    -1     1     1     1     1;
+     1     1     1     1     1     1     1
     ];
-img2d = projectPoints(img3Dp,M);
+
+% scale und trans matrix
+ST = [
+    scale(1)     0     0    1;
+    0     scale(2)    0    1;
+    0     0     scale(3)    1;
+    1     1     1    1
+    ];
+
+mybox3d = ST .* normalbox;
+
+% 2. Define edge list
+% Edges of Box
+myedges = [1 2; 2 3; 3 4; 4 1;...
+         5 6; 6 7; 7 8; 8 5;...
+         1 5; 2 6; 3 7; 4 8];
+     
+% 3. Define 2d point list
+% 2d - Bildkoordinaten: (x,y)
+% 1925x1926|1888x1394(ursprung "0"), 3025x1518|3209x949 (x=9.3),
+% 1556x1058|1483x491 (y = 9.1), 2570x242(diag von 0)
+
+% nur sichtbare punkte (dritter punkt entfernt)
+mybox2d = [
+    1925     3025    1556    1888    3209     2    -1;
+    1926     1518    1058    1394     949     1     1;
+       1        1       1       1       1     1     1
+    ];
+
+%2dpl = [170.096189432334,429.903810567666,429.903810567666,170.096189432334,213.397459621556,386.602540378444,386.602540378444,213.397459621556;170.096189432334,170.096189432334,429.903810567666,429.903810567666,213.397459621556,213.397459621556,386.602540378444,386.602540378444]
+%mybox2d = projectPoints(mybox3d,M);
+
+% 4. Compute camera parameters
+M_mybox = matrixFromPoints(mybox3d,mybox2d);
+[R_mybox T_mybox ox_mybox oy_mybox fx_mybox fy_mybox] = camParams(M_mybox,mybox3d);
+
+% 5. Project 3d Points with M, plot 2d points and compute error
+mybox2d_proj = projectPoints(mybox3d,M_mybox);
+
+%error
+MyPointdif = mybox2d - mybox2d_proj;
+myssd_points = sum(MyPointdif.^2);
+myssd = sum(MyPointdif(:).^2);
+
+%plot
+figure();
+subplot(1,3,1);
+imshow(myimg);
+title('My Image');
+subplot(1,3,2);
+plotPoints(mybox2d, myedges, myw, myh);
+title('Box');
+subplot(1,3,3);
+plotPoints(mybox2d_proj, myedges, myw, myh);
+title('Projected Box');
+
 
 
 
