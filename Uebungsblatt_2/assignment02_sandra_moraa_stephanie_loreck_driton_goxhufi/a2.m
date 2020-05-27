@@ -95,9 +95,9 @@ myh=2448;
 
 % x=breite,y=länge,z=höhe
 scale = [9.3,9.1,6.3]; % gegebenes bild
+%scale = [8.2,16.0,13.5]; % gegenstand
 % da normalbox kantenlänge von 2 hat scale halbieren
 scale=0.5.*scale;
-%scale = [8.2,16.0,13.5]; % gegenstand
 
 %1. Define 3d point list
 % normalbox = [
@@ -142,9 +142,12 @@ end
 
 % 2. Define edge list
 % Edges of Box, alle kanten mit verbindung zu punkt 3 entfernen
-myedges = [1 2; 4 1;...
-         5 6; 6 7; 7 8; 8 5;...
-         1 5; 2 6; 4 8];
+% edges = [1 2; 2 3; 3 4; 4 1;...
+%          5 6; 6 7; 7 8; 8 5;...
+%          1 5; 2 6; 3 7; 4 8];
+myedges = [1 2; 3 1;...
+         4 5; 5 6; 6 7 ; 7 4;...
+         1 4; 2 5; 3 7];
      
 % 3. Define 2d point list
 % 2d - Bildkoordinaten: (x,y)
@@ -176,17 +179,13 @@ myssd_points = sum(MyPointdif.^2);
 myssd = sum(MyPointdif(:).^2);
 
 %plot
-figure();
-subplot(1,3,1);
+figure(1);
 imshow(myimg);
 title('My Image');
-subplot(1,3,2);
-plotPoints(mybox2d, myedges, myw, myh);
-title('Box');
-%subplot(1,3,3);
-%plotPoints(mybox2d_proj3, myedges, myw, myh);
-%title('Projected Box');
 
+plotPoints(mybox2d, myedges, myw, myh);
+
+plotPoints(mybox2d_proj3, myedges, myw, myh);
 
 
 
