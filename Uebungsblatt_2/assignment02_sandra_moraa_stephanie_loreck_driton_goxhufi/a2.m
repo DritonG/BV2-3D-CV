@@ -70,11 +70,11 @@ ssd_T = sum(Tdif.^2);
 % auf die Genauigkeit der geschätzten Parameter aus? Was passiert wenn nur eine 2D-Koordinate
 % sehr stark abweicht (z.B. SSD nutzen)?
 
-% (Teil 1:) Durch SSD haben kleine Ungenauigkeiten(Verschiebungen) nur kleine 
-% Auswirkungen, da die Differenz(bspw. 0.5) quadriert wird und somit die 
-% Ungenauigkeit nur ein kleiner Faktor auch in ihrer Summe ergibt.
+% (Teil 1:) Durch SSD haben kleine Ungenauigkeiten (Verschiebungen) nur kleine 
+% Auswirkungen, da die Differenz (bspw. 0.5) quadriert wird und somit die 
+% Ungenauigkeit nur ein kleiner Faktor auch in der Summe ist.
 % (Teil 2:) Weist jedoch eine einzelne 2D-Koordinate sehr starke Abweichungen 
-% auf, somit wird durch die Quadierung der Differenz eine sehr starke
+% auf, wird durch die Quadierung der Differenz auch eine sehr starke
 % Ungenauigkeit in die Summe addiert. --> starke Auswirkung
 
 %% c) Compute parameters of your camera
@@ -85,7 +85,7 @@ ssd_T = sum(Tdif.^2);
 % 4. Compute camera parameters
 % 5. Project 3d Points with M, plot 2d points and compute error
 % -----------------------
-% Place your code here...
+
 img = imread('cam.jpg');
 gegenstand = imread('gegenstand.jpg');
 % 2d - Bildkoordinaten:
