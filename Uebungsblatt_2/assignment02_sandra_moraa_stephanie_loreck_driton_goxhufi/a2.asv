@@ -56,7 +56,7 @@ ssd = sum(Pointdif(:).^2);
 
 [R_new, T_new, ox_new, oy_new, fx_new, fy_new] = camParams(M_new,box(:,1));
 
-Tsol = camParamsSol(M_new, box(:,1));
+camParamsSol(M_new, box(:,1));
 
 % fehler zwischen mit geschaetzten und wirklichen caramParams bestimmen mit ssd
 Rdif = R - R_new;
@@ -70,6 +70,7 @@ ssd_T = sum(Tdif.^2);
 % auf die Genauigkeit der geschätzten Parameter aus? Was passiert wenn nur eine 2D-Koordinate
 % sehr stark abweicht (z.B. SSD nutzen)?
 
+% TODO: antwort
 % (Teil 1:) Durch SSD haben kleine Ungenauigkeiten(Verschiebungen) nur kleine 
 % Auswirkungen, da die Differenz(bspw. 0.5) quadriert wird und somit die 
 % Ungenauigkeit nur ein kleiner Faktor auch in ihrer Summe ergibt.
@@ -84,7 +85,7 @@ ssd_T = sum(Tdif.^2);
 % 3. Define 2d point list
 % 4. Compute camera parameters
 % 5. Project 3d Points with M, plot 2d points and compute error
-% -----------------------
+
 % Place your code here...
 img = imread('cam.jpg');
 gegenstand = imread('gegenstand.jpg');
@@ -93,35 +94,13 @@ gegenstand = imread('gegenstand.jpg');
 % 1556x1058|1483x491 (x = 9.1), 2570x242(diag von 0)
 %imshow(img)
 %imshow(box)
-
-%1. Define 3d point list
 img3Dp = [
     -1     1     1    -1    -1     1     1    -1;
     -1    -1     1     1    -1    -1     1     1;
     -1    -1    -1    -1     1     1     1     1;
      1     1     1     1     1     1     1     1
     ];
-
-% 2. Define edge list
-% Edges of Box
-edges = [1 2; 2 3; 3 4; 4 1;...
-         5 6; 6 7; 7 8; 8 5;...
-         1 5; 2 6; 3 7; 4 8];
-     
-% 3. Define 2d point list
-
-%2dpl = [170.096189432334,429.903810567666,429.903810567666,170.096189432334,213.397459621556,386.602540378444,386.602540378444,213.397459621556;170.096189432334,170.096189432334,429.903810567666,429.903810567666,213.397459621556,213.397459621556,386.602540378444,386.602540378444]
-
 img2d = projectPoints(img3Dp,M);
-
-% 4. Compute camera parameters
-M_img = matrixFromPoints(img3Dp,img2d);
-
-% 5. Project 3d Points with M, plot 2d points and compute error
-img2d_Mimg = projectPoints(img3Dp,M);
-
-%plotPoints(img2d_Mimg, edges, w, h)
-
 
 
 

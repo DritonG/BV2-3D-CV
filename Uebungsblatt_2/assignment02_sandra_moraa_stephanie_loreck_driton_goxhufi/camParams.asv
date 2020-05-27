@@ -16,7 +16,6 @@ q2 = [M(2,1);M(2,2);M(2,3)];
 q3 = [M(3,1);M(3,2);M(3,3)];
 %q4 = [M(1,4);M(2,4);M(3,4)];
 
-% mittelpunkte ox und oy
 ox = q1.'*q3;
 oy = q2.'*q3;
 
@@ -39,7 +38,7 @@ T = [tx;ty;tz];
 
 % R orthonormalisieren
 [U,S,V] = svd(R);
-R = U*V; % abchecken ob V^t raus kommt
+R = U*V; % 
 
 % T ohne rotation, T = -R*T', ges: T'
 T = (-1.*(R.'))*T;

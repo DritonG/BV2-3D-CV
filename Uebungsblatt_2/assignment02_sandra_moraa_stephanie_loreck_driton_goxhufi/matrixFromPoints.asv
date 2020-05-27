@@ -24,6 +24,7 @@ end
 
 % svd von A, 
 [U,S,V] = svd(A);
+
 % m ist letzte spalte von V, m ist spaltenvektor
 m = V(:,end);
 
@@ -41,7 +42,7 @@ M = M./gamma;
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% NOTES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ssd sum of squared differences, summe über alle projectionen, abstand
+% ssd sum of squared differences(distances), summe über alle projectionen, abstand
 % quadriert nehmen, parabelform dann, stare abstände sind stärker
 % dargesellt, man kann auch lineare abstände nehmen, fehlerwert nur
 % irgendwie bestimmen,
