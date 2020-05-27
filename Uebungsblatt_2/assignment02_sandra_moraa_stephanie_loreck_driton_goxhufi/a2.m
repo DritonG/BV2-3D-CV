@@ -40,7 +40,7 @@ box2d = projectPoints(box,M);
 M_new = matrixFromPoints(box,box2d);
 box2d_Mnew = projectPoints(box,M_new);
 
-matrixFromPointsSol(box,box2d);
+Msol = matrixFromPointsSol(box,box2d);
 
 % fehler zwischen mit M_new geschaetzten und wirklichen 2d punkten bestimmen mit ssd
 Pointdif = box2d - box2d_Mnew;
@@ -179,13 +179,13 @@ myssd_points = sum(MyPointdif.^2);
 myssd = sum(MyPointdif(:).^2);
 
 %plot
-figure(1);
-imshow(myimg);
-title('My Image');
+% figure(1);
+% imshow(myimg);
+% title('My Image');
 
-plotPoints(mybox2d, myedges, myw, myh);
+plotPoints(mybox2d, mybox2d_proj3, myedges, myw, myh);
 
-plotPoints(mybox2d_proj3, myedges, myw, myh);
+%plotPoints(mybox2d_proj3, myedges, myw, myh);
 
 
 
