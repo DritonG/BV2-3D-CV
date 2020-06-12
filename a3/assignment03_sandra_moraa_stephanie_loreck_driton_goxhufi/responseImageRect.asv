@@ -1,0 +1,53 @@
+function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,range)
+% compute correlation between subimage of image 1 and image 2 of a single 
+%   row, since the images are rectified -> translation only in x
+% x,y: gives the center of the subimage to find correlation for
+% wx,wy: defines subimage size 
+% range: range to search for best correlation 
+% return
+%   im: is the response image
+%   nx,ny: defines the point in image 2 with the best correlation with x, y
+%   min_corr,max_corr: defines the min/max value of the correlations
+
+    % init with default
+    s = size(img1);
+    max_corr = 0;
+    min_corr = 0;
+    ny = y;
+    nx = 0;
+    im = uint8(zeros(s(1),s(2)));   
+    cmin_corr = [];
+    cmax_corr = [];
+    index=[];
+    cim=[];
+    
+    for ch=1:s(3)
+        wimg1 = getWindow(img1(:,:,ch),y,x,wy,wx);
+        [cnx,ccorr]=correlation(wimg1,img2(:,:,ch),x,ny,range);
+            
+        cmin_corr = [cmin_corr,ccorr(cnx)];
+        cmax_corr = [cmax_corr,max(ccorr)];
+
+        index=[index,cnx];
+        cim=[cim;ccorr];
+            
+    end
+    
+    for ch=1:s(3)
+        im=cim
+    end
+    %im=mean(cim,1);
+    
+    min_corr=min(cmin_corr);
+    max_corr=max(cmax_corr);
+    
+    i = find(cmin_corr==min_corr);
+    nx = index(i);
+    
+end
+
+% bild ist nicht in der höhe verschoben 
+% man kann in der selben bild zeile suchen im bereich vom search range
+% (nach links und nach rechts, doppelter search range insgesamt) und dann 
+% besten pixel zurückgeben
+% nur für eine zeile
