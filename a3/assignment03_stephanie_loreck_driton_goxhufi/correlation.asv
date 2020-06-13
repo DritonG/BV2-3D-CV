@@ -19,7 +19,7 @@ function [nx, corr] = correlation(wimg1,img2,x,y,range)
     
     %disp("size of wimg1: "  + size(wimg1));
     [wy,wx]=size(wimg1);
-    [y2,x2,z2] = size(img2);
+    [y2,x2,z2] = size(img2)
     %disp("size of img2: " + size(img2));
     % set range if to big
     if(range>(x2/2))
@@ -39,23 +39,23 @@ function [nx, corr] = correlation(wimg1,img2,x,y,range)
     % wenn x nicht in der mitte ist das ein problem
     %-1 vors erste?
     for col = startsearch:endsearch
-        wimg2 = getWindow(img2,col, y, wx, wy);
+        wimg2 = getWindow(img2,y,col,wy,wx);
         
         % ssd
         dif = wimg1-wimg2;
         ssd = sum(dif(:).^2);
-        %index = [index,col]; % wofür wird index gebraucht?
-        corr = [corr,ssd];
+        index = [index,col]; % wofür wird index gebraucht?
+        %corr = [corr,ssd];
+        corr = [corr,sd];
     end
     
-    %disp("corr: " + corr);
+    disp("corr: " + corr);
     min_corr = min(corr);
-    %disp("min_corr: " + min_corr);
+    disp("min_corr: " + min_corr);
     i = find(corr==min_corr);
-    %disp("index : " + index);
-    %disp("index of min_corr: " + i);
-    nx = i;
-    %disp("value of min_corr: " + nx);
+    disp("index of min_corr: " + i);
+    nx = index(i);
+    disp("value of min_corr: " + nx);
 end
 
 % man darf die funktion getWindow benutzen

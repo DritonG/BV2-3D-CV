@@ -53,8 +53,7 @@ function [im,nx,ny,min_corr,max_corr]=responseImage(img1,img2,x,y,wx,wy)
     % (Wert-min) / (max-min) 
     %im = uint8(zeros(s(1),s(2)));
     %im = rgb2gray(cim);
-    im = mat2gray(cim, [max_corr, min_corr]);
-    %im = normalize(cim);
+    im = inv(a)mat2gray(cim);
     
     
 end

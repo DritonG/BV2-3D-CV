@@ -15,7 +15,7 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
     min_corr = 999999999999999999999999999999999999;
     ny = y;
     nx = 0;
-    %im = uint8(zeros([sy,sx,sz]));   
+    im = uint8(zeros([sy,sx,sz]));   
     cmin_corr = [];
     cmax_corr = [];
     index=[];
@@ -29,8 +29,8 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
         cmax_corr = [cmax_corr,max(ccorr)];
 
         %index=[index,cnx];
-        %cim[1,:,sz=[cim, ccorr];  
-        cim(1,:,ch)=ccorr;
+        cim=[cim, ccorr];  
+        cim(ny,:,ch)=ccorr;
     end    
     
     %im=mean(cim,1);
@@ -40,7 +40,7 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
     
     %i = find(cmin_corr==min_corr);
     nx = cnx;
-    im = mat2gray(cim, [max_corr, min_corr]);
+    im = mat2gray(mean(cim), [mean(max_corr), mean(min_corr)]);
 end
 
 % bild ist nicht in der höhe verschoben 
