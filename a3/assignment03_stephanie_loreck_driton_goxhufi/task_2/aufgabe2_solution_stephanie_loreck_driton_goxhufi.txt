@@ -1,27 +1,36 @@
 Exercise 2 - 
 
--Unterschiede der beiden Bilder-
+Die Bilder befinden sich mit im Ordner.
+
+Gibt es Unterschiede in den beiden Bildern, wenn ja - welche und woher könnten diese kommen?
 Bei Bild 1, Kamera-Kalibrierung nur zentrale Bilder aus "hoher" Entfernung, wölben sich die 
 Strukturen nahe des Bildrandes. Beim zweiten Bild, Kamera-Kalibrierung mit alle Bilder, werden die
-Bildränder mit wenigen schwarzen pixeln(auch etwas verzerrt -Kissenförmig-) abgeschlossen.
-Diese Unterschiede könnten von der diversiven Informationen die über Bilder der Kalibrierung beigefügt
-werden. 
+Bildränder mit wenigen schwarzen pixeln (auch etwas verzerrt -Tonnenförmig-) abgeschlossen.
+Diese Unterschiede könnten von den unterschiedlichen Informationen, der Anzahl und des Bilckwinkels 
+der Bilder kommen, die der Kalibrierung beigefügt werden. 
 Bild 1 hat hauptsächlich informationen über die größe der Gegenstände die sich in der Mitte der
 Bilder befinden.
 Bild 2 bekommt beinhaltet zusätzliche informationen über die pixel am Bildrand.
 
+Warum sind Bilder verzerrt (allgemein)?
+https://de.wikipedia.org/wiki/Verzeichnung
+
+Sind Ihre Bilder verzerrt - wenn ja, wieso? Falls nein, wieso nicht?
 Unsere Bilder sind verzerrt. Keine Tiefeninformation über gegenstände an bildrand--??? TODO
 
-Ja entzerrung hat einen nachteil für den Informationsgehalt. Da Bilder verändert werden und 
+Hat entzerrung einen Nachteil für den Informationsgehalt?
+Ja Entzerrung hat einen Nachteil für den Informationsgehalt. Da Bilder verändert werden und 
 unter umständen pixel verloren gehen bei der entzerrung, sinkt auch gezwungenermaßen der
 Informationsgehalt.
 
+DIe exportierten Kameraparameter befinden sich mit im Ordner.
 
+Parameter:
 Kamera:
 Huawei P20 Pro mit Leica Vario-Summilux-H1.6-2.4/27-80 ASPH., 40MPix, Laserfocus
 -Intrinsics-
-3003.48471723686	0	0
-0	3003.53606853676	0
+3003.48471723686	0			0
+0			3003.53606853676	0
 1847.17750500682	1364.70243112988	1
 
 -Radial Distortion-
