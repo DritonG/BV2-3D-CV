@@ -44,4 +44,3 @@ function w = getWindow(img,x,y,wx,wy)
     w(wys:wye,wxs:wxe,:) = img(ys:ye,xs:xe,:);
 
 end
-

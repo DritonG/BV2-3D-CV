@@ -8,8 +8,6 @@ function disparity = computeDisparity(img1,img2,wx,wy,range)
     s = size(img1);
     disparity = uint8(zeros(s(1),s(2)));
     
-    
-    
 end
 
 % fürs linke bild

@@ -27,8 +27,13 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
             
         cmin_corr = [cmin_corr,ccorr(cnx)];
         cmax_corr = [cmax_corr,max(ccorr)];
-
-        %index=[index,cnx];
+        if(cnx<range)
+            idx = x - (cnx-1);
+        else 
+            idx = x + ((cnx-1) - range);
+        end
+        
+        index=[index,idx];
         %cim[1,:,sz=[cim, ccorr];  
         cim(1,:,ch)=ccorr;
     end    
@@ -38,8 +43,8 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
     min_corr=min(cmin_corr);
     max_corr=max(cmax_corr);
     
-    %i = find(cmin_corr==min_corr);
-    nx = cnx;
+    i = find(cmin_corr==min_corr);
+    nx = index(i);
     im = mat2gray(cim, [max_corr, min_corr]);
 end
 

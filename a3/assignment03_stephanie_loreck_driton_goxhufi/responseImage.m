@@ -17,8 +17,7 @@ function [im,nx,ny,min_corr,max_corr]=responseImage(img1,img2,x,y,wx,wy)
     nx = 0;
     %%%% Erst am Ende im = uint8(zeros(s(1),s(2))); 
     cim = zeros([sy,sx,sz]); 
-    %disp(wx);
-    % fehlt: if(s(3))?, grayscale impl %done
+    
     for ch = 1:sz
         wimg1 = getWindow(img1(:,:,ch),x,y,wx,wy);
         %immer channel weise????
@@ -52,7 +51,9 @@ function [im,nx,ny,min_corr,max_corr]=responseImage(img1,img2,x,y,wx,wy)
     % hier stimmt was nicht
     % (Wert-min) / (max-min) 
     %im = uint8(zeros(s(1),s(2)));
-    %im = rgb2gray(cim);
+    %cim = rgb2gray(cim);
+    %im = uint8(zeros(s(1),s(2)));
+
     im = mat2gray(cim, [max_corr, min_corr]);
     %im = normalize(cim);
     

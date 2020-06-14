@@ -51,10 +51,10 @@ function [nx, corr] = correlation(wimg1,img2,x,y,range)
     %disp("corr: " + corr);
     min_corr = min(corr);
     %disp("min_corr: " + min_corr);
-    i = find(corr==min_corr);
+    nx = find(corr==min_corr);
     %disp("index : " + index);
     %disp("index of min_corr: " + i);
-    nx = i;
+    %nx = index(i);
     %disp("value of min_corr: " + nx);
 end
 
