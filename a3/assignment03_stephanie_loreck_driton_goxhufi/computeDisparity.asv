@@ -5,8 +5,8 @@ function disparity = computeDisparity(img1,img2,wx,wy,range)
 % range: search range for correlation
 % return disparty map
     
-    s = size(img1);
-    disparity = uint8(zeros(s(1),s(2)));
+    [sy,sx,sz] = size(img1);
+    disparity = uint8(zeros(sy,sx));
     
     for y=1:s(1) % rows
         for x=1:s(2) % cols
