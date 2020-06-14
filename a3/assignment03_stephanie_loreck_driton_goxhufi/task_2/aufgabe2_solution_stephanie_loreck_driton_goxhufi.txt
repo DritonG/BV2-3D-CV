@@ -13,7 +13,11 @@ Bilder befinden.
 Bild 2 bekommt beinhaltet zusätzliche informationen über die pixel am Bildrand.
 
 Warum sind Bilder verzerrt (allgemein)?
-https://de.wikipedia.org/wiki/Verzeichnung
+Durch Distorsion, einen geometrischen Abbildungsfehler. Je mehr ein Objekt auf dem Sensor von 
+von der Mitte, also von der optischen Achse, entfernt ist, desto mehr kann sich seine Vergrößerung ändern. 
+Distorsion tritt bei Quadratischen Objekten bzw. parallel zu den Bildrändern verlaufenden Linien auf.
+mehr Vergrößerung zum Bildrand --> kissenförmige Distorsion, sonst --> tonnenförmige Distorsion
+(Quelle: https://de.wikipedia.org/wiki/Verzeichnung)
 
 Sind Ihre Bilder verzerrt - wenn ja, wieso? Falls nein, wieso nicht?
 Unsere Bilder sind verzerrt. Keine Tiefeninformation über gegenstände an bildrand--??? TODO
@@ -23,7 +27,7 @@ Ja Entzerrung hat einen Nachteil für den Informationsgehalt. Da Bilder verände
 unter umständen pixel verloren gehen bei der entzerrung, sinkt auch gezwungenermaßen der
 Informationsgehalt.
 
-DIe exportierten Kameraparameter befinden sich mit im Ordner.
+Die exportierten Kameraparameter befinden sich mit im Ordner.
 
 Parameter:
 Kamera:

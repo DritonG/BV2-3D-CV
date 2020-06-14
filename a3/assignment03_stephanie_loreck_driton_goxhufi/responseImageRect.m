@@ -44,6 +44,9 @@ function [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,rang
     max_corr=max(cmax_corr);
     
     i = find(cmin_corr==min_corr);
+    if(size(i,2)>1)
+        i=i(1);
+    end
     nx = index(i);
     im = mat2gray(cim, [max_corr, min_corr]);
 end

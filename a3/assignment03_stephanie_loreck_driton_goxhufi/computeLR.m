@@ -10,10 +10,21 @@ function disparity = computeLR(img1,img2,wx,wy,range)
     dispimg1 = computeDisparity(img1,img2,wx,wy,range);
     dispimg2 = computeDisparity(img2,img1,wx,wy,range);
     
-    for y=1:s(1) % rows
-        for x=1:s(2) % cols
+    rows=s(1);
+    cols=s(2);
+    
+    for y=1:rows
+        for x=1:cols
             disp1=dispimg1(y,x);
-            disp2=dispimg2(y,x-disp1);
+            dif=x-disp1;
+            
+            if(dif<1)
+                dif=1;
+            elseif (dif>cols)
+               dif=cols;
+            end
+            
+            disp2=dispimg2(y,dif);
                         
             if(disp1==disp2)
                 disparity=dispimg1(y,x);

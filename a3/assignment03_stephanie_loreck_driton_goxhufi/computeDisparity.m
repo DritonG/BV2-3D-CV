@@ -8,17 +8,24 @@ function disparity = computeDisparity(img1,img2,wx,wy,range)
     s = size(img1);
     disparity = uint8(zeros(s(1),s(2)));
     
-    for y=1:s(1) % rows
-        for x=1:s(2) % cols
+    rows=s(1);
+    cols=s(2);
+    
+    parfor y=1:rows
+        for x=1:cols
             [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,range);
             cdisp=abs(x-nx); % verschiebung in spaltenrichtung
-            disparity(y,x)=cdisp; % fehler bei x=329, y=2, cdisp=292
-            disp('next');
-            disp(x);
-            disp(y);
-            disp(cdisp);
+            disparity(y,x)=cdisp;
+%             disp('next');
+%             disp(x);
+%             disp(y);
+%             disp(cdisp);
         end
     end
+    
+    disparity = double(disparity)/double(max(disparity(:)));
+    disparity = uint8(disparity*255);
+    disparity = imcomplement(disparity);
     
 end
 
