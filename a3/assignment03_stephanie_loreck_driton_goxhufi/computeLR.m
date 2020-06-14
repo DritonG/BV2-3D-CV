@@ -7,7 +7,22 @@ function disparity = computeLR(img1,img2,wx,wy,range)
     s=size(img1);
     disparity = uint8(zeros(s(1),s(2)));
     
-    %place your code here
+    dispimg1 = computeDisparity(img1,img2,wx,wy,range);
+    dispimg2 = computeDisparity(img2,img1,wx,wy,range);
+    
+    for y=1:s(1) % rows
+        for x=1:s(2) % cols
+            disp1=dispimg1(y,x);
+            disp2=dispimg2(y,x-disp1);
+                        
+            if(disp1==disp2)
+                disparity=dispimg1(y,x);
+            else
+                disparity=-1;
+            end
+            
+        end
+    end
     
     
     % ausgabe mit blauen linien, vorher wert disp bei falschen muss -1 sein
@@ -24,15 +39,15 @@ end
 
 % dipsarity map von beiden bildern berechnen
 % compute diparity mit bildern vertauscht 2 mal aufrufen
-% dann falsche korrespondenzen unterdrücken, ins linke bild gehen, disp
-% wert anschauen, ohne faktor vorher, über alle pixel laufen und für jeden
-% pixel die disp größe anschauen, dann im rechten bild an den
+% dann falsche korrespondenzen unterdrÃ¼cken, ins linke bild gehen, disp
+% wert anschauen, ohne faktor vorher, Ã¼ber alle pixel laufen und fÃ¼r jeden
+% pixel die disp grÃ¶ÃŸe anschauen, dann im rechten bild an den
 % korrspondieren pixel springen aber nicht an exakt gleiche kordinate
 % sondern an x wert-aktuellen disp wert gehen und dort disp wert im rechten
-% bild anschauen,die disp werte müssen gleich sein, sonst klappt das
+% bild anschauen,die disp werte mÃ¼ssen gleich sein, sonst klappt das
 % springen nicht
 
-% für alle px, linkes bild disps, dann x-disp für das pixel machen und an das x im
+% fÃ¼r alle px, linkes bild disps, dann x-disp fÃ¼r das pixel machen und an das x im
 % rechten bild gehen und schauen ob der gleiche disp wert dort steht
 % wenn es das gleiche ist ist es gut, wenn nicht, falsche werte blau
 % markieren, filter mit blauen punkten an den stellen, wenns nicht passt
