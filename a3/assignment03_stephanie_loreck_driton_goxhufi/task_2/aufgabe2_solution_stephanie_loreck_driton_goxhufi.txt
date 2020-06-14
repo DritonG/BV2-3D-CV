@@ -4,23 +4,35 @@ Die Bilder befinden sich mit im Ordner.
 
 Gibt es Unterschiede in den beiden Bildern, wenn ja - welche und woher könnten diese kommen?
 Bei Bild 1, Kamera-Kalibrierung nur zentrale Bilder aus "hoher" Entfernung, wölben sich die 
-Strukturen nahe des Bildrandes. Beim zweiten Bild, Kamera-Kalibrierung mit alle Bilder, werden die
-Bildränder mit wenigen schwarzen pixeln (auch etwas verzerrt -Tonnenförmig-) abgeschlossen.
-Diese Unterschiede könnten von den unterschiedlichen Informationen, der Anzahl und des Bilckwinkels 
+Strukturen nahe des Bildrandes(wellenförmige verzerrung). Beim zweiten Bild, Kamera-Kalibrierung 
+mit alle Bilder, werden die Bildränder mit wenigen schwarzen pixeln (auch etwas verzerrt -Tonnenförmig-) 
+abgeschlossen.
+Diese Unterschiede könnten von den unterschiedlichen Informationen innerhalb, der Anzahl und des Bilckwinkels 
 der Bilder kommen, die der Kalibrierung beigefügt werden. 
 Bild 1 hat hauptsächlich informationen über die größe der Gegenstände die sich in der Mitte der
 Bilder befinden.
-Bild 2 bekommt beinhaltet zusätzliche informationen über die pixel am Bildrand.
+Bild 2 beinhaltet zusätzliche informationen über die pixel nahe Bildrand.
 
 Warum sind Bilder verzerrt (allgemein)?
+-"Aufgrund von geometrischen Abbildungsfehlern im optischem System, führt in der Linsengleichung
+zu einer lokalen Veränderung des Abbildungsmaßstabes. Die Maßstabsänderung beruht auf einer 
+Änderung der Vergrößerung mit zunehmendem Abstand des Bildpunktes von der optischen Achse. -... -  
+Die Ursache der Verzeichnung liegt an Blenden bzw. begrenzenden Linsendurchmessern, die das 
+Strahlenbündel der Abbildung vor oder hinter der Hauptebene eines optischen Systems mit Öffnungsfehler 
+einengen. Das heißt, dass Teile des zur Konstruktion des Strahlengangs zur Verfügung stehenden Strahlenbündels,
+ ausgeblendet werden. Dadurch wird – gegenüber einem optischen System ohne Blende – die Richtung des Hauptstrahls 
+geändert und verursacht die Verzeichnung."- Source: https://de.wikipedia.org/wiki/Verzeichnung
+
 Durch Distorsion, einen geometrischen Abbildungsfehler. Je mehr ein Objekt auf dem Sensor von 
 von der Mitte, also von der optischen Achse, entfernt ist, desto mehr kann sich seine Vergrößerung ändern. 
 Distorsion tritt bei Quadratischen Objekten bzw. parallel zu den Bildrändern verlaufenden Linien auf.
 mehr Vergrößerung zum Bildrand --> kissenförmige Distorsion, sonst --> tonnenförmige Distorsion
-(Quelle: https://de.wikipedia.org/wiki/Verzeichnung)
+
 
 Sind Ihre Bilder verzerrt - wenn ja, wieso? Falls nein, wieso nicht?
-Unsere Bilder sind verzerrt. Keine Tiefeninformation über gegenstände an bildrand--??? TODO
+Ja unsere Bilder sind verzerrt. Bild 1(wellenförmig) mehr als Bild 2.
+wieso --> Siehe antwort zur ersten Frage.
+
 
 Hat entzerrung einen Nachteil für den Informationsgehalt?
 Ja Entzerrung hat einen Nachteil für den Informationsgehalt. Da Bilder verändert werden und 
