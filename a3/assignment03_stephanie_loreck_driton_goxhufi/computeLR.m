@@ -7,7 +7,22 @@ function disparity = computeLR(img1,img2,wx,wy,range)
     s=size(img1);
     disparity = uint8(zeros(s(1),s(2)));
     
-    %place your code here
+    dispimg1 = computeDisparity(img1,img2,wx,wy,range);
+    dispimg2 = computeDisparity(img2,img1,wx,wy,range);
+    
+    for y=1:s(1) % rows
+        for x=1:s(2) % cols
+            disp1=dispimg1(y,x);
+            disp2=dispimg2(y,x-disp1);
+                        
+            if(disp1==disp2)
+                disparity=dispimg1(y,x);
+            else
+                disparity=-1;
+            end
+            
+        end
+    end
     
     
     % ausgabe mit blauen linien, vorher wert disp bei falschen muss -1 sein

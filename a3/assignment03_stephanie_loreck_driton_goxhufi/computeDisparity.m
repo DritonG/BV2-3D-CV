@@ -11,8 +11,12 @@ function disparity = computeDisparity(img1,img2,wx,wy,range)
     for y=1:s(1) % rows
         for x=1:s(2) % cols
             [im,nx,ny,min_corr,max_corr]=responseImageRect(img1,img2,x,y,wx,wy,range);
-            disp=abs(x-nx); % verschiebung in spaltenrichtung
-            disparity(y,x)=disp;
+            cdisp=abs(x-nx); % verschiebung in spaltenrichtung
+            disparity(y,x)=cdisp; % fehler bei x=329, y=2, cdisp=292
+            disp('next');
+            disp(x);
+            disp(y);
+            disp(cdisp);
         end
     end
     
