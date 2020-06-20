@@ -12,6 +12,7 @@ function F = fundamentalMatrix(correspondences)
     pr = correspondences(:,3:4);
     
     % place your code here
+<<<<<<< HEAD
 end
 
 
@@ -49,3 +50,6 @@ end
 % xl value
 % yl value
 % 9 = 1
+=======
+end
+>>>>>>> c96de30aba4d5a4faac602a2e885cc7e6137af2a

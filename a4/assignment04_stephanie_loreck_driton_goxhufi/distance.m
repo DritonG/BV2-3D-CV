@@ -7,6 +7,9 @@ function err = distance(F,correspondences)
     % place your code here
 end
 
+<<<<<<< HEAD
 
 
 % Abstände aufsummieren und durch anzahl der korrespondenzen teilen.
+=======
+>>>>>>> c96de30aba4d5a4faac602a2e885cc7e6137af2a

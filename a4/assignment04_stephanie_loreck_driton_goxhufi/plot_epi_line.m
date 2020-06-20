@@ -10,6 +10,7 @@ l = 0;
 % place your code here
 end
 
+<<<<<<< HEAD
 
 %NOTES:
 % Linengleichung: a*x+by+c = 0
@@ -17,3 +18,5 @@ end
 % line funktion von matlab für die zeichnung der linie in ein bild. line(x,y,'Color',color);
 
 
+=======
+>>>>>>> c96de30aba4d5a4faac602a2e885cc7e6137af2a
