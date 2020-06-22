@@ -11,15 +11,15 @@ l = 0;
 % point homogenisieren, punkt hat spalten
 point=cat(2,point,[1]);
 
-% get a b c from line equation, vec hat spalten
-vec=F*point;
+% get a b c from line equation, vec hat zeilen
+vec=F*point';
 
 % x und y vetoren mit start und endpunkt werten
 x=[1, width];
 y=[0, 0];
 
 % get correct ys, vec(1)*x+vec(2)*y+vec(3)=0, y=-1*(vec(1)*x+vec(3))/vec(2)
-y=-1.*(vec(1).*x+vec(3))./vec(2); % TODO evtl geht das nicht
+y=-1.*(vec(1).*x+vec(3))./vec(2); 
 
 % plot line
 line(x,y,'Color',color);

@@ -17,14 +17,14 @@ function err = distance(F,correspondences)
     % distance point to line eqaution: d=abs(a*x+b*y+c)/sqrt(a^2+b^2)
     % d=abs(vec(1).*x+vec(3).*y+vec(3))./sqrt(vec(1)^2+vec(2)^2);
     vec=zeros(num_corr,3);
-    d=zeros(num_corr,1); % TODO evtl noch umdrehen
+    d=zeros(num_corr,1); 
     
     for i=1:num_corr
         % a b c from left point
-        vec(i,:)=F*pl(i,:);
+        vec(i,:)=F*pl(i,:)';
         
         % distance to right point
-        d(i)=abs(vec(i,1)*pr(i,:)+vec(i,3)*pr(i,:)+vec(i,3))/sqrt(vec(i,1)^2+vec(i,2)^2);
+        d(i)=abs(vec(i,1)*pr(i,1)+vec(i,2)*pr(i,2)+vec(i,3))/sqrt(vec(i,1)^2+vec(i,2)^2);
     end
     
     % avg distance

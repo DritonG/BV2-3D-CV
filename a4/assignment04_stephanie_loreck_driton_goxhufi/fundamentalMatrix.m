@@ -11,6 +11,7 @@ function F = fundamentalMatrix(correspondences)
     pl = correspondences(:,1:2);
     pr = correspondences(:,3:4);
     
+    % eigentlich unnoetig, da schon implementiert
     % check if at least 8 points
     if (num_corr<8)
         return;
@@ -84,17 +85,14 @@ function F = fundamentalMatrix(correspondences)
     % letzte spalte von V
     Fn=V(:,end);
     
-    % Fn orthogonalisieren wie bei R
-    %I=eye(size(Fn,1));
-    %Fn=Fn*I;
-    [U,S,V] = svd(Fn);
-    Fn=U*V;
+    % Fn orthogonalisieren wie bei R --> reshape, evtl noch transponieren (ja)
+    Fn=reshape(Fn,[3, 3])';
     
     % svd auf Fn
     [U,S,V] = svd(Fn);
     S(end,end)=0;
     
-    Fn=U*S*V;
+    Fn=U*S*V';
     
     % F aus Fn und H matrizen berechnen
     F=HR'*Fn*HL; % TODO dimensionen falsch
@@ -129,3 +127,18 @@ end
 % dann s davon nehmen und wert an stelle 3,3 (rechts unten) auf 0 setzten
 % und dann u*s*v' und das ist dann das finale fn und daraus dann mit h f
 % berechen % mit H dann F berechnen (siehe folien)
+
+% % Fn orthogonalisieren wie bei R
+%     %I=eye(size(Fn,1));
+%     %Fn=Fn*I;
+%     [U,S,V] = svd(Fn);
+%     Fn=U*V;
+%     
+%     % svd auf Fn
+%     [U,S,V] = svd(Fn);
+%     S(end,end)=0;
+%     
+%     Fn=U*S*V;
+%     
+%     % F aus Fn und H matrizen berechnen
+%     F=HR'*Fn*HL; % TODO dimensionen falsch
