@@ -18,11 +18,10 @@ vec=F*point;
 x=[1, width];
 y=[0, 0];
 
-% get correct ys, vec(1)*x+vec(2)*y+vec(3)=0, y=-1*(vec(1)*x+vec(3))/vec(2)
-y=-1.*(vec(1).*x+vec(3))./vec(2); % TODO evtl geht das nicht
+% get correct ys, y=vec(1,1)+vec(1,2)+vec1
+y
 
-% plot line
-line(x,y,'Color',color);
+%line(x,y,'Color',color);
 
 end
 
