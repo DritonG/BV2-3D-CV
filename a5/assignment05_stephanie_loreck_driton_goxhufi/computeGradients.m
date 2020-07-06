@@ -19,12 +19,12 @@ Dt = Dy;
 if strcmpi(method,'HS')
     % Horn-Schunck original method
 	
-    kernelx=[-1,1;-1,1]./4;
-    kernely=[-1,-1;1,1]./4;
+    kernelx=[1,-1;1,-1]./4;
+    kernely=[1,1;-1,-1]./4;
     
     %TODO Dt ist schwarz
-    kernelt1=[-1,-1;-1,-1]./4;
-    kernelt2=[1,1;1,1]./4;
+    kernelt1=[0,-1;0,-1]./4; % hier der kernel stellt Dt1 auf schwarz und wir ziehen davon noch Dt2 ab --> bleibt schwarz 
+    kernelt2=[0,1;0,1]./4; % <---------- ein kleiner fehler zur "solution" ist bei Dt noch zu erkennen(solution ist smoother!)
     
     Dx1 = conv2(im1,kernelx,'same');
     Dx2 = conv2(im2,kernelx,'same');
@@ -33,14 +33,14 @@ if strcmpi(method,'HS')
     Dt1 = conv2(im1,kernelt1,'same');
     Dt2 = conv2(im2,kernelt2,'same');
     
-    Dx=Dx1-Dx2;
-    Dy=Dy1-Dy2;
-    Dt=Dt1-Dt2;
-	
+    Dx=Dx1+Dx2;
+    Dy=Dy1+Dy2;
+    %Dt=(Dx2+Dy2)-(Dx1+Dy1);
+    Dt = Dt2 + Dt1;
 elseif strcmpi(method,'BA') 
     % Horn-Schunck with Barron modification
     
-    kernelx=[-1,8;0,0;-8,1]./12; % TODO dieser kernel ist noch falsch
+    kernelx=[-1,8,0,-8,1]./12; % TODO dieser kernel ist noch falsch, DRITON: Done! es ist ein "5x5 Kernel
     kernely=kernelx';
     
 	Dx = conv2(im1,kernelx,'same');
