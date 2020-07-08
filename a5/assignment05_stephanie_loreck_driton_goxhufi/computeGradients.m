@@ -22,7 +22,6 @@ if strcmpi(method,'HS')
     kernelx=[1,-1;1,-1]./4;
     kernely=[1,1;-1,-1]./4;
     
-    %TODO Dt ist schwarz, @Driton: Done
     kernelt1=[-1,-1;-1,-1]./4; 
     kernelt2=[1,1;1,1]./4; 
     
@@ -39,7 +38,7 @@ if strcmpi(method,'HS')
 elseif strcmpi(method,'BA') 
     % Horn-Schunck with Barron modification
     
-    kernelx=[-1,8,0,-8,1]./12; % TODO dieser kernel ist noch falsch, DRITON: Done! es ist ein "5x5 Kernel
+    kernelx=[-1,8,0,-8,1]./12; 
     kernely=kernelx';
     
 	Dx = conv2(im1,kernelx,'same');
