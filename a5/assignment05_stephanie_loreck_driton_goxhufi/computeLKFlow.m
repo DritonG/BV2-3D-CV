@@ -29,7 +29,13 @@ function v = flowVector(dx,dy,dt)
     v = [0 0 0];
 	
     % place your code here
-	
+    % v = [A'W^2A]^-1 A'W^2b
+	A = [dx;dy]';
+    b = [dt]';
+    mat1 = A'.*A;
+    mat2 = A'.*b;
+    print(mat1);
+    print(mat2);
 end
 
 end
@@ -39,6 +45,7 @@ end
 % b ist seitlicher gradient, einer der gradienten
 % A setzt sich aus 2 gradienten zusammen
 % noch checks: auf det von A'A checken und dann noch auf eigenwerte schauen
+% wie groß
 % und gegebenenfalls unterschiedlich behandeln
 
 % zu fragen der eigenwerte:
